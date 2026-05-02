@@ -11,17 +11,22 @@ def reply():
     data = request.json
     mensaje = data.get("message", "")
     
-    response = requests.post(
+    groq_response = requests.post(
         "https://api.groq.com/openai/v1/chat/completions",
         headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
         json={
             "model": "llama3-8b-8192",
             "messages": [
-                {"role": "system", "content": "Respondé mensajes de WhatsApp de manera corta y natural. Si alguien pregunta por Alan decí que está ocupado y que ya responde."},
+                {"role": "system", "content": "Respondé mensajes de WhatsApp de manera corta y natural. Si alguien pregunta por Ozono decí que está ocupado y que ya responde."},
                 {"role": "user", "content": mensaje}
             ]
         }
-    ).json()
+    )
+    
+    response = groq_response.json()
+    
+    if "choices" not in response:
+        return jsonify({"error": response}), 500
     
     respuesta = response["choices"][0]["message"]["content"]
     return jsonify({"reply": respuesta})
