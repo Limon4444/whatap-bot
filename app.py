@@ -15,7 +15,7 @@ def reply():
         "https://api.groq.com/openai/v1/chat/completions",
         headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
         json={
-            "model": "llama3-8b-8192",
+            "model": "llama-3.3-70b-versatile",
             "messages": [
                 {"role": "system", "content": "Respondé mensajes de WhatsApp de manera corta y natural. Si alguien pregunta por Ozono decí que está ocupado y que ya responde."},
                 {"role": "user", "content": mensaje}
